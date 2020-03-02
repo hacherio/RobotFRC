@@ -1,1 +1,39 @@
+//https://docs.wpilib.org/en/latest/docs/software/old-commandbased/commands/running-commands-autonomous.html
 
+
+public class robotAuto extends CommandGroup {
+
+    public  robotAuto() {
+      addSequential(new moveToLine());
+      addSequential(new Grab());
+      addSequential(new DriveToDistance(0.11));
+      addSequential(new PlaceSoda());
+      addSequential(new DriveToDistance(0.2));
+      addSequential(new Stow));
+    }
+}
+
+public class Robot extends TimedRobot {
+    Command autonomousCommand;
+
+    /**
+     * This function is run when the robot is first started up and should be
+     * used for any initialization code.
+     */
+    public void robotInit() {
+      oi = new OI();
+        // instantiate the command used for the autonomous period
+        autonomousCommand = new SodaDelivery();
+    }
+
+    public void autonomousInit() {
+        // schedule the autonomous command (example)
+        if (autonomousCommand != null) autonomousCommand.start();
+    }
+
+    /**
+     * This function is called periodically during autonomous
+     */
+    public void autonomousPeriodic() {
+        Scheduler.getInstance().run();
+    }
